@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "damg7370adfspring2025g"
 		},
+		"NYPD_SF_password": {
+			"value": ""
+		},
 		"ls_snowflake_password": {
 			"value": ""
 		},
@@ -13,6 +16,12 @@
 		},
 		"AzureKeyVault_LS_properties_typeProperties_baseUrl": {
 			"value": "https://damg7370spring2025gr.vault.azure.net/"
+		},
+		"NYPD_SF_properties_typeProperties_database": {
+			"value": "NYPD_ARREST_DB"
+		},
+		"NYPD_SF_properties_typeProperties_role": {
+			"value": "NYPD_ARREST_ROLE"
 		},
 		"ls_snowflake_properties_typeProperties_database": {
 			"value": "TEMP_DB"
