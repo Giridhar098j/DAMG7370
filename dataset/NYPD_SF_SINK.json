@@ -1,0 +1,16 @@
+{
+	"name": "NYPD_SF_SINK",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NYPD_SF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "NYPD_ARREST_SCHEMA",
+			"table": "NYPD_ARREST_TB"
+		}
+	}
+}
