@@ -1,5 +1,5 @@
 {
-	"name": "df_CSV_TO_ROWS_NAME_BASICS",
+	"name": "Name_basics_raw",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -9,13 +9,13 @@
 						"referenceName": "ds_Name_Basics",
 						"type": "DatasetReference"
 					},
-					"name": "NameBasics"
+					"name": "NameBasicsRaw"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SnowflakeTable_Name_Basics_Cleaned",
+						"referenceName": "SnowflakeTable_NAME_BASICS_RAW",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -23,13 +23,13 @@
 			],
 			"transformations": [
 				{
-					"name": "SplitRowsOnCommas"
-				},
-				{
-					"name": "flatten1"
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     Job_Id as string (\"59\")",
+				"}",
 				"source(output(",
 				"          nconst as string,",
 				"          primaryName as string,",
@@ -40,21 +40,10 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> NameBasics",
-				"NameBasics derive(knownForTitles = split(knownForTitles, ','),",
-				"          primaryProfession = split(primaryProfession, ',')) ~> SplitRowsOnCommas",
-				"SplitRowsOnCommas foldDown(unrollMultiple(knownForTitles,primaryProfession),",
-				"     mapColumn(",
-				"          nconst,",
-				"          primaryName,",
-				"          birthYear,",
-				"          deathYear,",
-				"          primaryProfession,",
-				"          knownForTitles",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"flatten1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> NameBasicsRaw",
+				"NameBasicsRaw derive(JOB_ID = $Job_Id,",
+				"          CREATED_DATE = currentDate()) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          NCONST as string,",
@@ -80,7 +69,9 @@
 				"          BIRTHYEAR = birthYear,",
 				"          DEATHYEAR = deathYear,",
 				"          PRIMARYPROFESSION = primaryProfession,",
-				"          KNOWNFORTITLES = knownForTitles",
+				"          KNOWNFORTITLES = knownForTitles,",
+				"          JOB_ID,",
+				"          CREATED_DATE",
 				"     )) ~> sink1"
 			]
 		}

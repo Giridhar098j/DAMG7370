@@ -1,0 +1,49 @@
+{
+	"name": "SnowflakeTable_NAME_BASICS_RAW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_snowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "NCONST",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "PRIMARYNAME",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "BIRTHYEAR",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "DEATHYEAR",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "PRIMARYPROFESSION",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "KNOWNFORTITLES",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "JOB_ID",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "CREATED_DATE",
+				"type": "DATE"
+			}
+		],
+		"typeProperties": {
+			"schema": "DEMO_SF",
+			"table": "RAW_NAME_BASICS"
+		}
+	}
+}
