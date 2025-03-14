@@ -30,6 +30,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     Job_Id as string (\"59\")",
+				"}",
 				"source(output(",
 				"          nconst as string,",
 				"          primaryName as string,",
@@ -42,7 +45,9 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> NameBasics",
 				"NameBasics derive(knownForTitles = split(knownForTitles, ','),",
-				"          primaryProfession = split(primaryProfession, ',')) ~> SplitRowsOnCommas",
+				"          primaryProfession = split(primaryProfession, ','),",
+				"          JOB_ID = $Job_Id,",
+				"          Load_Date = currentDate()) ~> SplitRowsOnCommas",
 				"SplitRowsOnCommas foldDown(unrollMultiple(knownForTitles,primaryProfession),",
 				"     mapColumn(",
 				"          nconst,",
@@ -50,7 +55,9 @@
 				"          birthYear,",
 				"          deathYear,",
 				"          primaryProfession,",
-				"          knownForTitles",
+				"          knownForTitles,",
+				"          JOB_ID,",
+				"          Load_Date",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
@@ -80,7 +87,9 @@
 				"          BIRTHYEAR = birthYear,",
 				"          DEATHYEAR = deathYear,",
 				"          PRIMARYPROFESSION = primaryProfession,",
-				"          KNOWNFORTITLES = knownForTitles",
+				"          KNOWNFORTITLES = knownForTitles,",
+				"          JOB_ID,",
+				"          CREATED_DATE = Load_Date",
 				"     )) ~> sink1"
 			]
 		}
